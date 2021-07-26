@@ -5,7 +5,9 @@ import ContactsItem from "./contactsItem/ContactsItem";
 const ContactsList = ({ contacts, filter, changeFilter, onDeleteContact }) => (
   <>
     <Filter filter={filter} changeFilter={changeFilter} />
-    <ContactsItem contacts={contacts} onDeleteContact={onDeleteContact} />
+    <ul>
+      <ContactsItem contacts={contacts} onDeleteContact={onDeleteContact} />
+    </ul>
   </>
 );
 
