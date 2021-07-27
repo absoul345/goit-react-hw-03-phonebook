@@ -1,9 +1,9 @@
-import React, { Component } from "react";
-import SectionAddContacts from "../section/SectionAddContacts";
-import SectionList from "../section/SectionList";
-import AddContacts from "../addContacts/AddContacts";
-import ContactsList from "../contactsList/ContactsList";
-import { v4 as uuidv4 } from "uuid";
+import React, { Component } from 'react';
+import SectionAddContacts from '../section/SectionAddContacts';
+import SectionList from '../section/SectionList';
+import AddContacts from '../addContacts/AddContacts';
+import ContactsList from '../contactsList/ContactsList';
+import { v4 as uuidv4 } from 'uuid';
 
 export class Phonebook extends Component {
   state = {
@@ -13,13 +13,15 @@ export class Phonebook extends Component {
       { id: 'id-3', name: 'Eden Clements', number: '645-17-79' },
       { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
     ],
-    filter: "",
+    filter: '',
   };
 
   addContacts = (name, number) => {
     if (
       this.state.contacts.find(
-        (contact) => contact.name === name || contact.number === number
+        contact =>
+          contact.name.toLowerCase() === name.toLowerCase() ||
+          contact.number === number,
       )
     ) {
       alert(`${name} or ${number} is already in contacts`);
@@ -30,14 +32,13 @@ export class Phonebook extends Component {
       name: name,
       number: number,
     };
-    this.setState((prevState) => ({
+    this.setState(prevState => ({
       contacts: [newContact, ...prevState.contacts],
     }));
   };
 
-
   componentDidMount() {
-    const contacts = localStorage.getItem("contacts");
+    const contacts = localStorage.getItem('contacts');
     const parseContacts = JSON.parse(contacts);
     if (parseContacts) {
       this.setState({ contacts: parseContacts });
@@ -46,17 +47,16 @@ export class Phonebook extends Component {
 
   componentDidUpdate(prevState) {
     if (this.state.contacts !== prevState.contacts) {
-      localStorage.setItem("contacts", JSON.stringify(this.state.contacts));
-
+      localStorage.setItem('contacts', JSON.stringify(this.state.contacts));
     }
   }
-  onDeleteContact = (id) => {
-    this.setState((prevState) => ({
-      contacts: prevState.contacts.filter((contact) => contact.id !== id),
+  onDeleteContact = id => {
+    this.setState(prevState => ({
+      contacts: prevState.contacts.filter(contact => contact.id !== id),
     }));
   };
 
-  changeFilter = (e) => {
+  changeFilter = e => {
     this.setState({ filter: e.currentTarget.value });
   };
 
@@ -64,10 +64,10 @@ export class Phonebook extends Component {
     const { contacts, filter } = this.state;
 
     const normalizedFilter = filter.toLowerCase();
-    return contacts.filter((contact) =>
-      contact.name.toLowerCase().includes(normalizedFilter)
+    return contacts.filter(contact =>
+      contact.name.toLowerCase().includes(normalizedFilter),
     );
-  }
+  };
 
   render() {
     const { filter } = this.state;
