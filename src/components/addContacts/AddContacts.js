@@ -1,29 +1,31 @@
-import React, { Component } from "react";
-import { v4 as uuidv4 } from "uuid";
+import React, { Component } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 import styles from "./AddContacts.module.css";
+
 
 export class AddContacts extends Component {
   state = {
-    name: "",
-    number: "",
-  };
+    id: uuidv4(),
+    name: '',
+    number: '',
+  }
 
-  handleChange = (e) => {
+  handleChange = e => {
     const { name, value } = e.currentTarget;
     this.setState({
-      [name]: value,
-    });
-  };
+      [name]: value
+    })
+  }
 
-  handleSubmit = (e) => {
+  handleSubmit = e => {
     e.preventDefault();
     this.props.onSubmit(this.state.name, this.state.number);
     this.reset();
-  };
+  }
 
   reset = () => {
-    this.setState({ name: "", number: "" });
-  };
+    this.setState({ name: '', number: '' })
+  }
 
   render() {
     const { name, number } = this.state;
@@ -58,13 +60,11 @@ export class AddContacts extends Component {
               required
             />
           </label>
-          <button className={styles.btn} type="submit">
-            Add contacts
-          </button>
+          <button className={styles.btn} type="submit">Add contacts</button>
         </form>
       </div>
-    );
+    )
   }
 }
 
-export default AddContacts;
+export default AddContacts
